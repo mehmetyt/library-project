@@ -1,0 +1,90 @@
+.divForms {
+    display: flex;
+    justify-content: center;
+}
+
+.forms {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    width: 60%;
+    max-width: 660px;
+
+    * {
+        border-radius: 5px;
+        margin-top: 1rem;
+    }
+
+    h4 {
+        text-align: center;
+    }
+
+    &-row{
+        display: flex;
+        justify-content: space-between;
+        select{
+            flex:1;
+            margin-right: .5rem;
+            option {
+                background-color: rgba(172, 255, 47, 0.5);
+                color: black;
+            }
+        }
+        input{
+            flex:1;
+            margin-left: .5rem;
+
+        }
+    }
+
+    input,
+    select,
+    option {
+        height: 2.5rem;
+    }
+
+    textarea,
+    input,
+    select {
+        text-indent: .5rem;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+
+        &:focus {
+            outline: 2px solid rgba(172, 255, 47, 0.5);
+            border: none;
+        }
+        
+    }
+
+    textarea {
+        height: 10rem;
+    }
+
+
+    button {
+        border: 2px solid rgba(172, 255, 47, 0.5);
+        background-color: rgba(0, 0, 0, 0.2);
+        color: rgba(172, 255, 47, 0.5);
+        padding: .4rem .8rem;
+        margin: 0 .5rem;
+
+        &:hover {
+            opacity: 70%;
+        }
+
+        &:active {
+            outline: solid rgba(172, 255, 47, 0.5);
+            opacity: 100%;
+
+        }
+        &:disabled{
+            opacity: 10%;
+        }
+    }
+
+    &-button {
+        text-align: center;
+    }
+
+}
