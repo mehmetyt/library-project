@@ -1,5 +1,6 @@
 import axios from "axios";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useReducer,} from "react";
+import { initialState ,reducer} from "../reducers/reducer";
 
 
 
@@ -9,20 +10,9 @@ const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
 
-    const [kitaplik, setKitaplik] = useState([]);
-    const [kategoriler, setKategoriler] = useState([]);
-    const [search, setSearch] = useState('');
-    const [secilenKategori, setSecilenKategori] = useState('');
-    const [secilenKitap, setSecilenKitap] = useState('');
+    const [state,dispatch]=useReducer(reducer,initialState)
 
-    const [isOpen, setIsOpen] = useState(false);
-
-    const [kitapAdi, setKitapAdi] = useState('');
-    const [kitapYazari, setKitapYazari] = useState('');
-    const [kitapKategorisi, setKitapKategorisi] = useState('secin');
-    const [kitapResmi, setKitapResmi] = useState('');
-    const [kitapSayfaSayisi, setKitapSayfaSayisi] = useState(0);
-    const [kitapAciklamasi, setKitapAciklamasi] = useState('');
+    const{secilenKitap,kitaplik,kategoriler,secilenKategori,kitapAdi,kitapYazari,kitapKategorisi,kitapSayfaSayisi,kitapAciklamasi,kitapResmi}=state;
 
     useEffect(() => {
         kategoriGetir();
@@ -31,13 +21,11 @@ export const DataProvider = ({ children }) => {
     useEffect(() => {
         kitapGetir();
         if (secilenKitap){
-            setIsOpen(true);
-            setKitapAdi(secilenKitap.kitapAdi);
-            setKitapYazari(secilenKitap.kitapYazari);
-            setKitapKategorisi(secilenKitap.kitapKategorisi);
-            setKitapResmi(secilenKitap.kitapResmi);
-            setKitapSayfaSayisi(secilenKitap.kitapSayfaSayisi);
-            setKitapAciklamasi(secilenKitap.kitapAciklamasi);
+
+            dispatch({type:'ISOPENTRUE'})
+
+            dispatch({type:'FORMDOLDUR',payload:secilenKitap})
+            
         }
     }, [secilenKategori, secilenKitap])
 
@@ -49,7 +37,8 @@ export const DataProvider = ({ children }) => {
         console.log(url);
         const response = await fetch(url);
         const kitaplar = await response.json();
-        setKitaplik(kitaplar);
+
+        dispatch({type:'KITAPLIK',payload:kitaplar});
     }
 
     //kategorileri getir
@@ -57,36 +46,31 @@ export const DataProvider = ({ children }) => {
         const url = 'http://localhost:3005/kategoriler';
         const response = await fetch(url);
         const kategoriler = await response.json();
-        setKategoriler(kategoriler);
+
+        dispatch({type:'KATEGORILER',payload:kategoriler});
     }
 
     // yeni kitap ekleme
     const yeniKitapEkleDuzenle = async (yeni) => {
         let url = 'http://localhost:3005/kitaplar';
         if (!secilenKitap) {
-            setKitaplik(prev => [...prev, yeni]);
+
+            dispatch({type:'KITAPEKLE',yeni});
             const response = await axios.post(url, yeni);
         }
         else {
             url += '/' + secilenKitap.id;
             const response2 = await axios.put(url, yeni);
-            setKitaplik(prev =>
-                prev.map(kitap => {
+            dispatch({type:'KITAPDUZENLE',yeni});
 
-                    if (kitap.id === secilenKitap.id)
-                        return { ...response2.data }
-                    else
-                        return { ...kitap }
-                }
-                )
-            )
-            setSecilenKitap('');
+            dispatch({type:'SECILENKITAPRESET'})
         }
     }
 
     // kitap silme
     const kitapSil = async (id) => {
-        setKitaplik(prev => prev.filter(x => x.id !== id));
+
+        dispatch({type:'KITAPSIL',id})
         const url = 'http://localhost:3005/kitaplar';
         const response = await axios.patch(url + '/' + id, { isDeleted: true });
     }
@@ -105,12 +89,8 @@ export const DataProvider = ({ children }) => {
             kitapSayfaSayisi: kitapSayfaSayisi,
             kitapAciklamasi: kitapAciklamasi
         })
-        setKitapAdi('');
-        setKitapYazari('');
-        setKitapKategorisi(kategoriler[0].kategoriAdi);
-        setKitapResmi('');
-        setKitapAciklamasi('');
-        setKitapSayfaSayisi(0);
+
+        dispatch({type:'FORMRESET'})
     }
 
 
@@ -119,33 +99,10 @@ export const DataProvider = ({ children }) => {
 
     return <DataContext.Provider value={
         {
-            kitapSil,          //card
-            setSecilenKitap,
-            search,           //cardList
-            kitaplik,
-            kategoriler,        //navi
-            search,
-            setSecilenKategori,
-            setSearch,       //search
-
-            kategoriler, handleSubmit,// forms
-
-            kitapAdi,
-            kitapYazari,
-            kitapKategorisi,
-            kitapSayfaSayisi,
-            kitapAciklamasi,
-            kitapResmi,
-
-            setKitapAdi,
-            setKitapYazari,
-            setKitapKategorisi,
-            setKitapSayfaSayisi,
-            setKitapAciklamasi,
-            setKitapResmi,
-
-            isOpen, setIsOpen, secilenKitap //app
-
+            kitapSil,          
+            handleSubmit,
+            state,
+            dispatch
         }}>
         {children}
     </DataContext.Provider>

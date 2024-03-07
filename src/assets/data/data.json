@@ -130,69 +130,9 @@
       "id": "15",
       "kitapAdi": "a",
       "kitapYazari": "a",
-      "kitapKategorisi": "Edebiyat",
+      "kitapKategorisi": "Tarih",
       "kitapResmi": "",
-      "kitapSayfaSayisi": "2",
-      "kitapAciklamasi": "a",
-      "isDeleted": true
-    },
-    {
-      "id": "16",
-      "kitapAdi": "a",
-      "kitapYazari": "a",
-      "kitapKategorisi": "Edebiyat",
-      "kitapResmi": "",
-      "kitapSayfaSayisi": "2",
-      "kitapAciklamasi": "a",
-      "isDeleted": true
-    },
-    {
-      "id": "17",
-      "kitapAdi": "a",
-      "kitapYazari": "a",
-      "kitapKategorisi": "Yazılım",
-      "kitapResmi": "",
-      "kitapSayfaSayisi": "2",
-      "kitapAciklamasi": "a",
-      "isDeleted": true
-    },
-    {
-      "id": "18",
-      "kitapAdi": "",
-      "kitapYazari": "",
-      "kitapKategorisi": "Yazılım",
-      "kitapResmi": "",
-      "kitapSayfaSayisi": 0,
-      "kitapAciklamasi": "",
-      "isDeleted": true
-    },
-    {
-      "id": "19",
-      "kitapAdi": "a",
-      "kitapYazari": "a",
-      "kitapKategorisi": "Edebiyat",
-      "kitapResmi": "",
-      "kitapSayfaSayisi": "2",
-      "kitapAciklamasi": "a",
-      "isDeleted": true
-    },
-    {
-      "id": "20",
-      "kitapAdi": "",
-      "kitapYazari": "",
-      "kitapKategorisi": "Yazılım",
-      "kitapResmi": "",
-      "kitapSayfaSayisi": 0,
-      "kitapAciklamasi": "",
-      "isDeleted": true
-    },
-    {
-      "id": "21",
-      "kitapAdi": "a",
-      "kitapYazari": "a",
-      "kitapKategorisi": "Yazılım",
-      "kitapResmi": "",
-      "kitapSayfaSayisi": "2",
+      "kitapSayfaSayisi": "3",
       "kitapAciklamasi": "a",
       "isDeleted": true
     }

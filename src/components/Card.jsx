@@ -5,14 +5,15 @@ import DataContext from '../context/DataContext';
 
 
   const Card = ({kitap}) => {
-    const {kitapSil,setSecilenKitap}=useContext(DataContext);
+    const {state,dispatch,kitapSil}=useContext(DataContext);
+    const{}=state;
   return (
 
     <div className="book" >
       <img className='book-img' src={kitap.kitapResmi?kitap.kitapResmi:Book} alt="Kitap Resmi" />
 
       <div className="actions">
-        <button onClick={()=>setSecilenKitap(kitap)}><i className='fas fa-pen'></i></button>
+        <button onClick={()=>dispatch({type:'SECILENKITAP',kitap})}><i className='fas fa-pen'></i></button>
         <button onClick={()=>kitapSil(kitap.id)}><i className='fas fa-trash'></i></button>
       </div>
       <div className="book-info">

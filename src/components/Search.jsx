@@ -3,10 +3,10 @@ import '../assets/styles/search.scss'
 import DataContext from '../context/DataContext'
 
 const Search = () => {
-  const{setSearch}=useContext(DataContext);
+  const{dispatch}=useContext(DataContext);
   return (
     <div className='form' >
-      <input className='form-input' type="search" placeholder="Arama yapın..." onChange={(e)=>setSearch(e.target.value)} />
+      <input className='form-input' type="search" placeholder="Arama yapın..." onChange={(e)=>dispatch({type:'SEARCH',payload:e.target.value})} />
     </div>
   )
 }

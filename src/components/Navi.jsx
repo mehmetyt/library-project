@@ -5,7 +5,9 @@ import Search from './Search'
 import DataContext from '../context/DataContext'
 
 const Navi = () => {
-    const { kategoriler, search,setSecilenKategori }=useContext(DataContext);
+    const {state,dispatch}=useContext(DataContext);
+    const {kategoriler}=state;
+
     return (
         <nav>
             <div className='brand'>
@@ -13,13 +15,13 @@ const Navi = () => {
                 <h3>Boost Online-6 Lib</h3>
             </div>
             <ul>{
-                kategoriler.map(item =>
-                        <li key={item.id} onClick={(e)=>setSecilenKategori(e.target.innerText)}>
+               kategoriler.map(item =>
+                        <li key={item.id} onClick={(e)=>dispatch({type:'SECILENKATEGORI',payload:e.target.innerText})}>
                             {item.kategoriAdi}
                             </li>
                 )
             }
-                <Search search={search} />
+                <Search />
             </ul>
         </nav>
     )

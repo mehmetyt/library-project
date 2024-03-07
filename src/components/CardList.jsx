@@ -4,27 +4,29 @@ import '../assets/styles/cardlist.scss'
 import DataContext from '../context/DataContext'
 
 const CardList = () => {
-    const {search,kitaplik}=useContext(DataContext);
+    const { state, dispatch } = useContext(DataContext);
+    const { search, kitaplik } = state;
 
 
     return (
         <>
             <h3>Kitaplar</h3>
-            <div className='cardlist'>
-                {
-                    kitaplik.map(kitap =>
-                        !kitap.isDeleted &&
-                        (
+
+                <div className='cardlist'>
+                    {
+                        kitaplik.map(kitap =>
+                            !kitap.isDeleted &&
                             (
-                                kitap.kitapAdi.toLowerCase().startsWith(search.toLowerCase()) ||
-                                kitap.kitapYazari.toLowerCase().startsWith(search.toLowerCase())
+                                (
+                                    kitap.kitapAdi.toLowerCase().startsWith(search.toLowerCase()) ||
+                                    kitap.kitapYazari.toLowerCase().startsWith(search.toLowerCase())
+                                )
+                                &&
+                                <Card key={kitap.id} kitap={kitap} />
                             )
-                            &&
-                            <Card key={kitap.id} kitap={kitap} />
                         )
-                    )
-                }
-            </div>
+                    }
+                </div>
         </>
     )
 }
